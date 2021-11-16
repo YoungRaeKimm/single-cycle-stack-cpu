@@ -15,6 +15,8 @@ parameter WORDS = (1<<(ABITS-2));
 reg [ABITS-1:0] pc;
 wire [ABITS-1:0] inst;
 wire read_inst_mem;
+wire write_inst_mem;
+wire [31:0] din_inst_mem;
 
 // control
 wire [5:0] opcode;
@@ -46,9 +48,11 @@ wire [ABITS-1:0] addr_mem;
 wire [DBITS-1:0] din_mem;
 wire [DBITS-1:0] dout_mem;
 
-inst_mem i_mem(
-                .en(read_inst_mem),
+inst_mem i_mem(.clk(clk),
+               .en(read_inst_mem),
+               .we(write_inst_mem),
                .pc(pc),
+               .din(din_inst_mem),
                .dout(inst));                
 
 control control_unit(
@@ -87,7 +91,9 @@ data_mem d_mem(
                 .addr(addr_mem),
                 .din(din_mem),
                 .dout(dout_mem));
-
+                
+assign write_inst_mem = 0;
+assign din_inst_mem = 32'hxxxxxxxx;
 assign opcode = inst[31:26];
 assign read_inst_mem = 1;
 assign imm = {{22{inst[25]}}, {inst[24:16]} };

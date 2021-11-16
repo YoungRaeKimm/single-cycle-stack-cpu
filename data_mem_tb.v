@@ -29,22 +29,22 @@ initial begin
     #(clk_period);
     en = 1;
     we = 0;
-    addr = 32'h0000;
-    din = 32'h0000;
+    addr = 32'h0;
+    din = 32'hxxxxxxxx;
     #(clk_period);
     $display("value stored in the address(%h) is : %h", addr, dout);
     
     en = 0;
     we = 1;
-    addr = 32'h0000;
-    din = 32'hf123;
+    addr = 32'h0;
+    din = 32'h0000f123;
     #(clk_period);
     $display("store %h in the address(%h)", din, addr);
     
     en = 1;
     we = 0;
-    addr = 32'h0000;
-    din = 32'h0000;
+    addr = 32'h0;
+    din = 32'hxxxxxxxx;
     #(clk_period);
     $display("the modified value stored in the address(%h) is : %h", addr, dout);
 end

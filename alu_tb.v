@@ -71,7 +71,7 @@ initial begin
     #(clk_period); 
     $display("negi %h    result : %h branch : %h", alu_in2, alu_result, branch);
     
-    alu_ctl = 4'b1100; // not
+    alu_ctl = 4'b1100; // noti
     #(clk_period); 
     $display("noti %h    result : %h branch : %h", alu_in2, alu_result, branch);
     
